@@ -285,7 +285,12 @@
                             Dexie.setByKeyPath(obj, table.schema.primKey.keyPath, primKey);
                         }
                     }
-
+                    
+                    //Allows for bulk data imports to not be logged
+                    if (trans.db.nosync) {
+                        return;
+                    }
+                    
                     var change = {
                         source: trans.source || null, // If a "source" is marked on the transaction, store it. Useful for observers that want to ignore their own changes.
                         table: tableName,
